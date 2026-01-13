@@ -19,7 +19,7 @@ public class PlayerInput : MonoBehaviour
             if(Physics.Raycast(ray, out hit))
             {
                 Debug.Log(hit.transform.gameObject.name);
-                hit.transform.GetComponent<Animator>().SetBool("isCardOpen", true);
+                hit.transform.GetComponent<Card>().FlipOpen(true);
             }
         }
     }
