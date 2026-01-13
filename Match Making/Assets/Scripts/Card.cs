@@ -18,4 +18,9 @@ public class Card : MonoBehaviour
     {
         animator.SetBool("isCardOpen", value);
     }
+
+    public int GetCardID()
+    {
+        return cardID;
+    }
 }

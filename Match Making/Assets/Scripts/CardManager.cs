@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class CardManager : MonoBehaviour
 {
-    public int pairAmount;
-    public int width;
-    public int height;
+    [HideInInspector] public int pairAmount;
+    [HideInInspector] public int width;
+    [HideInInspector] public int height;
 
     public Sprite[] spriteList;
     public GameObject cardPrefab;
@@ -16,6 +16,7 @@ public class CardManager : MonoBehaviour
 
     void Start()
     {
+        GameManager.instance.SetPairs(pairAmount);
         CreatePlayField();
     }
 
