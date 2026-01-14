@@ -11,12 +11,12 @@ public class PlayerInput : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(0) && !GameManager.instance.HasPicked() && !GameManager.instance.GameIsOver())
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            if(Physics.Raycast(ray, out hit) && !GameManager.instance.HasPicked())
+            if(Physics.Raycast(ray, out hit))
             {
                 Card currentCard = hit.transform.GetComponent<Card>();
                 currentCard.FlipOpen(true);

@@ -8,9 +8,11 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     bool picked;
+    bool isGameOver;
     List<Card> pickedCard = new List<Card>();
     private int pairs;
     private int pairCounter;
+    public int scorePerMatch = 20;
 
     private void Awake()
     {
@@ -36,8 +38,11 @@ public class GameManager : MonoBehaviour
             //pickedCard[1].gameObject.SetActive(false);
             pickedCard[0].GetComponent<BoxCollider>().enabled = false;
             pickedCard[1].GetComponent<BoxCollider>().enabled = false;
+
             pairCounter++;
             CheckForWin();
+
+            ScoreManager.instance.AddScore(scorePerMatch);
         }
         else
         {
@@ -48,6 +53,8 @@ public class GameManager : MonoBehaviour
 
         picked = false;
         pickedCard.Clear();
+
+        ScoreManager.instance.AddTurn();
     }
 
     private void CheckForWin()
@@ -58,10 +65,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void GameOver()
+    {
+        isGameOver = true;
+        Debug.Log("Game Over");
+    }
+
+    public bool GameIsOver()
+    {
+        return isGameOver;
+    }
+
     public bool HasPicked()
     {
         return picked;
     }
+
     public void SetPairs(int pairAmount)
     {
         pairs = pairAmount;
