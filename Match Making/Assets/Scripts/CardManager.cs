@@ -10,7 +10,9 @@ public class CardManager : MonoBehaviour
     public List<Sprite> spriteList = new List<Sprite>();
     public GameObject cardPrefab;
 
-    private float offset = 1.2f;
+    private float offsetX = 0.9f;
+    private float offsetZ = 1.15f;
+
 
     public List<GameObject> cardDeck = new List<GameObject>();
 
@@ -55,7 +57,7 @@ public class CardManager : MonoBehaviour
         {
             for (int z = 0; z < height; z++)
             {
-                Vector3 pos = new Vector3(x * offset, 0, z * offset);
+                Vector3 pos = new Vector3(x * offsetX, 0, z * offsetZ);
                 cardDeck[num].transform.position = pos;
                 num++;
             }
@@ -68,8 +70,8 @@ public class CardManager : MonoBehaviour
         {
             for (int z = 0; z < height; z++)
             {
-                Vector3 pos = new Vector3(x * offset, 0, z * offset);
-                Gizmos.DrawWireCube(pos, new Vector3(1.0f, 0.1f, 1.0f));
+                Vector3 pos = new Vector3(x * offsetX, 0, z * offsetZ);
+                Gizmos.DrawWireCube(pos, new Vector3(0.753f, 0.05f, 1.0f));
             }
         }
     }
