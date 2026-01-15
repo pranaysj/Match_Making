@@ -9,7 +9,7 @@ public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager instance;
 
-    public int timeToLevelComplete = 60;
+    public int timeToLevelComplete;
     public Image timeImage;
     public TMP_Text timeText;
     public TMP_Text scoreText;
