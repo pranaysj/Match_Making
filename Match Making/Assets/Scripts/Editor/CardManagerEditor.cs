@@ -39,7 +39,7 @@ public class CardManagerEditor : Editor
         EditorGUILayout.PropertyField(_height);
 
         var temp = _width.intValue * (float)_height.intValue / 2;
-        _pairAmount.intValue = (int)System.Math.Floor(temp);
+        _pairAmount.intValue = (int)System.Math.Ceiling(temp);
         //_pairAmount.intValue = (int)System.Math.Ceiling(temp);
 
 
