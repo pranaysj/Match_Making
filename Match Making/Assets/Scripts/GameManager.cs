@@ -14,9 +14,18 @@ public class GameManager : MonoBehaviour
     private int pairCounter;
     public int scorePerMatch = 20;
 
+    public GameObject winPanel;
+    public GameObject losePanel;
+
     private void Awake()
     {
         instance = this;
+    }
+
+    private void Start()
+    {
+        winPanel.SetActive(false);
+        losePanel.SetActive(false);
     }
 
     public void AddCardToPickedList(Card card)
@@ -34,8 +43,6 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         if (pickedCard[0].GetCardID() == pickedCard[1].GetCardID())
         {
-            //pickedCard[0].gameObject.SetActive(false);
-            //pickedCard[1].gameObject.SetActive(false);
             pickedCard[0].GetComponent<BoxCollider>().enabled = false;
             pickedCard[1].GetComponent<BoxCollider>().enabled = false;
 
@@ -43,6 +50,9 @@ public class GameManager : MonoBehaviour
             CheckForWin();
 
             ScoreManager.instance.AddScore(scorePerMatch);
+
+            pickedCard[0].ActivateConfitte();
+            pickedCard[1].ActivateConfitte();
         }
         else
         {
@@ -61,6 +71,8 @@ public class GameManager : MonoBehaviour
     {
         if(pairs == pairCounter)
         {
+            winPanel.SetActive(true);
+            ScoreManager.instance.StopTimer();
             Debug.Log("WIN");
         }
     }
@@ -68,6 +80,7 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         isGameOver = true;
+        losePanel.SetActive(true);
         Debug.Log("Game Over");
     }
 

@@ -7,7 +7,7 @@ public class CardManager : MonoBehaviour
     [HideInInspector] public int width;
     [HideInInspector] public int height;
 
-    public Sprite[] spriteList;
+    public List<Sprite> spriteList = new List<Sprite>();
     public GameObject cardPrefab;
 
     private float offset = 1.2f;
@@ -22,16 +22,23 @@ public class CardManager : MonoBehaviour
 
     private void CreatePlayField()
     {
+        List<Sprite> tempSprite = new List<Sprite>();
+        tempSprite.AddRange(spriteList);
+
         //Card Deck     
         for (int i = 0; i < pairAmount; i++)
         {
+            int randomIndex = Random.Range(0, tempSprite.Count);
+
             for (int j = 0; j < 2; j++)
             {
                 Vector3 pos = Vector3.zero;
                 GameObject newCard = Instantiate(cardPrefab, pos, Quaternion.identity);
-                newCard.GetComponent<Card>().SetCard(i, spriteList[i]);
+                newCard.GetComponent<Card>().SetCard(i, tempSprite[randomIndex]);
                 cardDeck.Add(newCard);
             }
+
+            tempSprite.RemoveAt(randomIndex);
         }
 
         //Shuffle
@@ -57,14 +64,13 @@ public class CardManager : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if(pairAmount * 2 != width * height)
+        for (int x = 0; x < width; x++)
         {
-            Debug.LogError("Width * Height should be PairAmount * 2");
-        }
-
-        if(pairAmount > spriteList.Length)
-        {
-            Debug.LogError("Not enough cards");
+            for (int z = 0; z < height; z++)
+            {
+                Vector3 pos = new Vector3(x * offset, 0, z * offset);
+                Gizmos.DrawWireCube(pos, new Vector3(1.0f, 0.1f, 1.0f));
+            }
         }
     }
 }
